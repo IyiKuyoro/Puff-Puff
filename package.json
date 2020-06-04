@@ -16,7 +16,8 @@
   "files": [
     "CKEditor",
     "index.js",
-    "README.md"
+    "README.md",
+    "LICENCE.txt"
   ],
   "repository": {
     "type": "git",
