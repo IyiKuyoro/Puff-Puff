@@ -4,7 +4,7 @@
   "description": "Puff-puff helps you upload your CKEditor rich text images wherever you want.",
   "main": "./index.js",
   "scripts": {
-    "clear": "rm -rf ./*.js",
+    "clear": "rm -rf ./index.js && rm -rf ./CKEditor",
     "prepare": "npm run clear && npm run build",
     "prepublishOnly": "npm run lint",
     "version": "npm run format && git add -A src",
@@ -14,11 +14,8 @@
     "lint": ""
   },
   "files": [
-    "Adapter.js",
-    "CloudinaryUnsigned.js",
-    "CustomUpload.js",
+    "CKEditor",
     "index.js",
-    "dist",
     "README.md"
   ],
   "repository": {
