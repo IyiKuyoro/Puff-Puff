@@ -2,17 +2,25 @@
   "name": "puff-puff",
   "version": "0.1.0",
   "description": "Puff-puff helps you upload your CKEditor rich text images wherever you want.",
-  "main": "./dist/index.js",
+  "main": "./index.js",
   "scripts": {
-    "clear": "rm -rf dist",
+    "clear": "rm -rf ./*.js",
     "prepare": "npm run clear && npm run build",
     "prepublishOnly": "npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-    "build": "babel src --copy-files -d dist",
+    "build": "babel src --copy-files -d .",
     "format": "prettier --write \"src/**/*.js\"",
     "lint": ""
   },
+  "files": [
+    "Adapter.js",
+    "CloudinaryUnsigned.js",
+    "CustomUpload.js",
+    "index.js",
+    "dist",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/IyiKuyoro/Puff-Puff.git"
@@ -32,6 +40,7 @@
   "devDependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
     "eslint": "^7.1.0"
   }
 }

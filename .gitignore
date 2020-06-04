@@ -5,5 +5,5 @@
 node_modules
 
 # builds
-dist
+./*.js
 *.tgz
