@@ -10,6 +10,7 @@ The constructor accepts two arguments and returns a new instance of the adapter.
 |------------|--------|-------------|---------|
 | url        | string | The upload url | "https://upload-api/images" |
 | loader     | Object    | The loader is a parameter provided by the ckeditor which contains things like the `file`, `total upload size`, `uploaded`. | N/A |
+| requestHeaders _optional_ | object | This parameter contains header contents you may wish to add | { 'Authorization': 'xxxxxxxxxxxxxxxx' }
 
 #### CloudinaryUnsigned
 
