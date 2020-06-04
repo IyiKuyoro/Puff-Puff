@@ -1,2 +1,2 @@
-export * from './CloudinaryUnsigned';
-export * from './CustomUpload';
+export * from './CKEditor/CloudinaryUnsigned';
+export * from './CKEditor/CustomUpload';
