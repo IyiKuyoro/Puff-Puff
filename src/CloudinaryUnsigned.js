@@ -29,7 +29,7 @@ export class CloudinaryUnsigned extends Adapter {
           this.xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
           // Hookup an event listener to update the upload progress bar
-          this.xhr.upload.addEventListener('progress', e => {
+          this.xhr.upload.addEventListener('progress', (e) => {
             this.loader.uploadTotal = 100;
             this.loader.uploaded = Math.round((e.loaded * 100) / e.total);
           });
@@ -109,7 +109,7 @@ export class CloudinaryUnsigned extends Adapter {
       throw new Error('No unsigned upload preset provided');
     }
 
-    size.forEach(s => {
+    size.forEach((s) => {
       if (typeof s !== 'number' || isNaN(+s)) {
         throw new Error('Sizes must be of type numbers');
       }

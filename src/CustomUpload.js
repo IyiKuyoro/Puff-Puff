@@ -29,7 +29,7 @@ export class CustomUpload extends Adapter {
           this._setHeader();
 
           // Hookup an event listener to update the upload progress bar
-          this.xhr.upload.addEventListener('progress', e => {
+          this.xhr.upload.addEventListener('progress', (e) => {
             this.loader.uploadTotal = 100;
             this.loader.uploaded = Math.round((e.loaded * 100) / e.total);
           });
