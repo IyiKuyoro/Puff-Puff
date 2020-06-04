@@ -62,7 +62,7 @@ imagePluginFactory(editor) {
 
 ### Class Documentation
 
-- [CKEditor Adapters]()
+- [CKEditor Adapters](https://github.com/IyiKuyoro/Puff-Puff/blob/master/src/CKEditor/README.md)
 
 ### Contributors
 
