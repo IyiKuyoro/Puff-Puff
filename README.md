@@ -12,7 +12,7 @@ If you wish to upload the embedded images to a custom web app, all you need to p
 
 - Install puff-puff using `npm i --save puff-puff`
 - Import the **CustomUpload** adapter into the file where you setup your editor using `import { CustomUpload } from 'puff-puff/CKEditor';`
-- After installing the package, you would need to setup a factory function that creates the adapter that would be added to your editor's config object. [(Please review this doc on how to setup your editor)](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/overview.html). Below is a sample function that demonstrates that. Keep in mind that depending on the frontend library or framework you use, where you place the function below may defer.
+- After installing the package, you would need to setup a factory function that creates the adapter that would be added to your editor's config object. [(Please review this doc on how to setup your editor)](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/overview.html). Below is a sample function that demonstrates that. Keep in mind that depending on the frontend library or framework you use, where you place the function below may defer. The url of the uploaded image in this case will be in the response body of the <upload_url> post request as 'image_url'
 ```javascript
 imagePluginFactory(editor) {
   editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
@@ -20,12 +20,20 @@ imagePluginFactory(editor) {
   };
 }
 ```
-- Finally, add the plugin to your extra plugins array in the config object.
-- If your upload endpoint is expecting some headers, you can include them as a third parameter in the constructor
+- If you wish to use a custom parameter name for the image url in your response body, add a third parameter to the constructor like so.
 ```javascript
 imagePluginFactory(editor) {
   editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
-    return new CustomUpload( <upload_url>, loader, <headers_object>);
+    return new CustomUpload( <upload_url>, loader, 'url');
+  };
+}
+```
+- Finally, add the plugin to your extra plugins array in the config object.
+- If your upload endpoint is expecting some headers, you can include them as a fourth parameter in the constructor
+```javascript
+imagePluginFactory(editor) {
+  editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
+    return new CustomUpload( <upload_url>, loader, '', <headers_object>);
   };
 }
 ```

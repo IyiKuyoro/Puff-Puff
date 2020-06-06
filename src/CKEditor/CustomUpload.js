@@ -7,9 +7,10 @@ export class CustomUpload extends Adapter {
    * @param  {any} loader Object used in loading the image
    * @param  {any} requestHeader Any headers you may wish to include in the request
    */
-  constructor(url, loader, requestHeader = {}) {
+  constructor(url, loader, imgResponseParameter = 'image_url', requestHeader = {}) {
     super(url, loader);
     this.headers = requestHeader;
+    this.imageUrlParameter = imgResponseParameter;
   }
 
   _setHeader() {
@@ -40,8 +41,11 @@ export class CustomUpload extends Adapter {
               // Successful upload, resolve the promise with the new image
               const response = JSON.parse(this.xhr.responseText);
 
+              if (!response[this.imageUrlParameter]) {
+                throw new Error(`Could not find '${this.imageUrlParameter}' in the response.`);
+              }
               let images = {
-                default: response.image_url,
+                default: response[this.imageUrlParameter],
               };
 
               resolve(images);
