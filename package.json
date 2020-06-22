@@ -1,6 +1,6 @@
 {
   "name": "puff-puff",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "Puff-puff helps you upload your CKEditor rich text images wherever you want.",
   "main": "./index.js",
   "scripts": {
