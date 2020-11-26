@@ -80,4 +80,4 @@ _Opeoluwa Iyi-Kuyoro_: 👨🏿[Profile](https://github.com/IyiKuyoro) - [WebSit
 
 As you can already tell, there is a whole lot more to be added to turn this into a goto library for all things embedded rich text image uploads. Please feel free to fork, add and raise a PR if you are so inclined. I am also open to discussing any challenges with you on [twitter](https://twitter.com/IyiKuyoro) or via Email.
 
-[![Buy me beer](https://res.cloudinary.com/iyikuyoro/image/upload/c_scale,w_154/v1606348762/GitHub%20Readme%20Images/Screen_Shot_2020-11-25_at_6.55.02_PM.png "Buy me beer.")](buymeacoff.ee/iyikuyoro)
+[![Buy me beer](https://res.cloudinary.com/iyikuyoro/image/upload/c_scale,w_154/v1606348762/GitHub%20Readme%20Images/Screen_Shot_2020-11-25_at_6.55.02_PM.png "Buy me beer.")](https://buymeacoff.ee/iyikuyoro)
