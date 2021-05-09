@@ -20,7 +20,7 @@ The constructor accepts two arguments and returns a new instance of the adapter.
 | loader     | Object    | The loader is a parameter provided by the ckeditor which contains things like the `file`, `total upload size`, `uploaded`. | N/A |
 | cloudName  | string | This is the cloud name gotten from your cloudinary dashboard | 'MyCloud' |
 | unsignedUploadPreset | string | This is the upload preset you created on cloudinary using [these steps](https://support.cloudinary.com/hc/en-us/articles/360004967272-Upload-Preset-Configuration) | 'MyPreset' |
-| sizes _optional_    | number[] | This is an array of numbers that holds the sizes in px of images you wish to have in the editor. It helps ckeditor with responsive images. | [ 160, 500, 1000 ] |
+| sizes _optional_    | number[] or object | An array of numbers or an object of sizes with their named transformation. It helps ckeditor with responsive images. | [ 160, 500, 1000 ] or {160: 't_image_xs', 500: 't_image_md'} |
 
 
 ### Methods

@@ -6,18 +6,16 @@ export class CloudinaryUnsigned extends Adapter {
    * @param  {any} loader Object used in loading the image
    * @param  {string} cloudName Cloudinary cloud name
    * @param  {string} unsignedUploadPreset Cloudinary unsigned upload preset
-   * @param  {number[]} sizes List of pixel sizes
+   * @param  {number[]|object} sizes List of pixel sizes
    */
-  constructor(loader, cloudName, unsignedUploadPreset, sizes = []) {
+  constructor(loader, cloudName, unsignedUploadPreset, sizes) {
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
     super(url, loader);
 
     this._validateCloudinaryParams(cloudName, unsignedUploadPreset, sizes);
     this.cloudName = cloudName;
     this.unsignedUploadPreset = unsignedUploadPreset;
-    if (sizes.length > 0) {
-      this.sizes = sizes;
-    }
+    this.sizes = sizes;
   }
 
   upload() {
@@ -40,18 +38,10 @@ export class CloudinaryUnsigned extends Adapter {
               // Successful upload, resolve the promise with the new image
               const response = JSON.parse(this.xhr.responseText);
 
-              let images;
-
-              if (this.sizes) {
-                images = {
-                  default: response.secure_url,
-                  ...this._getImageSizes(response.secure_url),
-                };
-              } else {
-                images = {
-                  default: response.secure_url,
-                };
-              }
+              const images = {
+                default: response.secure_url,
+                ...this._getImageSizes(response.secure_url),
+              };
 
               resolve(images);
             } else if (this.xhr.status !== 200) {
@@ -74,12 +64,24 @@ export class CloudinaryUnsigned extends Adapter {
 
     // Split url in two
     const splitUrl = this._splitUrl(defaultImageUrl);
+    const sizes = this.sizes;
 
-    if (this.sizes) {
-      const len = this.sizes.length;
-      this.sizes.forEach((size, index) => {
+    if (Array.isArray(sizes)) {
+      const len = sizes.length;
+      sizes.forEach((size, index) => {
         if (index !== len - 1) {
           imageObject[size.toString()] = `${splitUrl.firstHalf}w_${size}%2Cc_scale${splitUrl.secondHalf}`;
+        } else {
+          imageObject[size.toString()] = defaultImageUrl;
+        }
+      });
+    } else if (typeof sizes === 'object') {
+      Object.keys(sizes).forEach((size, index) => {
+        const len = Object.keys(sizes).length;
+        const namedTransformation = sizes[size];
+
+        if (index !== len - 1) {
+          imageObject[size.toString()] = `${splitUrl.firstHalf}${namedTransformation}${splitUrl.secondHalf}`;
         } else {
           imageObject[size.toString()] = defaultImageUrl;
         }
@@ -91,7 +93,10 @@ export class CloudinaryUnsigned extends Adapter {
 
   _splitUrl(url) {
     // This function splits the image url in two.
-    const firstHalfLength = 41 + this.cloudName.length;
+    // Example input url: https://res.cloudinary.com/{cloudName}/image/upload/v123456789/{some}/{path}/image.jpg
+
+    const mark = '/image/upload/';
+    const firstHalfLength = url.indexOf(mark) + mark.length;
     const firstHalf = url.substr(0, firstHalfLength);
     const secondHalf = url.substr(firstHalfLength - 1, url.length - firstHalfLength + 1);
 
@@ -101,7 +106,7 @@ export class CloudinaryUnsigned extends Adapter {
     };
   }
 
-  _validateCloudinaryParams(cloudName, unsignedUploadPreset, size) {
+  _validateCloudinaryParams(cloudName, unsignedUploadPreset, sizes) {
     if (!cloudName || !cloudName.trim()) {
       throw new Error('No cloud name provided');
     }
@@ -109,10 +114,12 @@ export class CloudinaryUnsigned extends Adapter {
       throw new Error('No unsigned upload preset provided');
     }
 
-    size.forEach((s) => {
-      if (typeof s !== 'number' || isNaN(+s)) {
-        throw new Error('Sizes must be of type numbers');
-      }
-    });
+    if (Array.isArray(sizes)) {
+      sizes.forEach((s) => {
+        if (typeof s !== 'number' || isNaN(+s)) {
+          throw new Error('Sizes must be of type numbers');
+        }
+      });
+    }
   }
 }
